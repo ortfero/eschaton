@@ -24,7 +24,6 @@ cd eschaton
 mkdir build
 cd build
 cmake ../tests
-./eschaton
 ```
 
 
