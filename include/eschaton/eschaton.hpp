@@ -50,31 +50,27 @@ struct datetime {
   using time_of_day = date::time_of_day<std::chrono::microseconds>;
   
   static datetime utc() noexcept {
-    return from_system_time(std::chrono::system_clock::now());    
+    return from(std::chrono::system_clock::now());    
   }
   
-  static datetime from_system_time(system_time const& tp) noexcept {
+  static datetime from(system_time const& tp) noexcept {
     using date::floor;
     auto const dp = floor<date::days>(tp);
     year_month_day const ymd = dp;
     time_of_day const tod{floor<std::chrono::microseconds>(tp - dp)};
     return datetime{ymd, tod};
   }
-  
-  static datetime from_microseconds(uint64_t micros) noexcept {
-    return from_system_time(eschaton::from_microseconds(micros));
+    
+  template<typename D> static datetime from(uint64_t units) noexcept {
+    return from_system_time(eschaton::from<D>(units));
   }
   
-  static datetime from_milliseconds(uint64_t millis) noexcept {
-    return from_system_time(eschaton::from_milliseconds(millis));
-  }
-  
-  static datetime from_seconds(uint64_t seconds) noexcept {
-    return from_system_time(eschaton::from_seconds(seconds));
-  }
-  
-  static datetime from_date(date::year y, date::month m, date::day d) noexcept {
+  static datetime from(date::year y, date::month m, date::day d) noexcept {
     return datetime{y/m/d, time_of_day{}};
+  }
+  
+  static datetime from(year_month_day const& ymd) noexcept {
+    return datetime{ymd, time_of_day{}};
   }
     
   datetime() noexcept = default;
