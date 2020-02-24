@@ -20,33 +20,22 @@ namespace eschaton {
 using system_time = std::chrono::system_clock::time_point;
 using system_duration = std::chrono::system_clock::duration;
 
-inline uint64_t to_seconds(system_time const& tp) noexcept {
+template<typename D> uint64_t to(system_time const& tp) noexcept {
   using namespace std::chrono;
-  return uint64_t(floor<seconds>(tp.time_since_epoch()).count());
+  return uint64_t(floor<D>(tp.time_since_epoch()).count());
 }
 
-inline system_time from_seconds(uint64_t seconds) noexcept {
-  return system_time{std::chrono::seconds{seconds}};
+template<typename D> system_time from(uint64_t units) noexcept {
+  return system_time{D{units}};
 }
 
-inline uint64_t to_milliseconds(system_time const& tp) noexcept {
-  using namespace std::chrono;
-  return uint64_t(floor<milliseconds>(tp.time_since_epoch()).count());
+template<typename D> uint64_t current() noexcept {
+  return to<D>(std::chrono::system_clock::now());
 }
 
-inline system_time from_milliseconds(uint64_t millis) noexcept {
-  return system_time{std::chrono::milliseconds{millis}};
+template<typename D> uint64_t elapsed(uint64_t from) noexcept {
+  return current<D>() - from;
 }
-
-inline uint64_t to_microseconds(system_time const& tp) noexcept {
-  using namespace std::chrono;
-  return uint64_t(floor<microseconds>(tp.time_since_epoch()).count());
-}
-
-inline system_time from_microseconds(uint64_t micros) noexcept {
-  return system_time{std::chrono::microseconds{micros}};
-}
-
 
 template<typename D>
 bool is_occured(system_time const& tp, date::time_of_day<D> const& tod) noexcept {
