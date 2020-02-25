@@ -2,7 +2,7 @@
 
 
 
-#include <stdint.h>
+#include <cstdint>
 #include <chrono>
 #include <ostream>
 
@@ -10,7 +10,6 @@
 #define HAS_UNCAUGHT_EXCEPTIONS 1
 #endif
 #include <date/date.h>
-
 
 
 
