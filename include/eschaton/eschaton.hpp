@@ -100,11 +100,11 @@ struct datetime {
     stream << '-';
     print_fixed_2(stream, unsigned(dt.ymd_.day()));
     stream << ' ';
-    print_fixed_2(stream, int(dt.tod_.hour()));
+    print_fixed_2(stream, int(dt.tod_.hours()));
     stream << ':';
-    print_fixed_2(stream, int(dt.tod_.minute()));
+    print_fixed_2(stream, int(dt.tod_.minutes()));
     stream << ':';
-    print_fixed_2(stream, int(dt.tod_.second()));
+    print_fixed_2(stream, int(dt.tod_.seconds()));
     return stream;
   }
 
