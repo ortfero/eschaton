@@ -6,15 +6,13 @@
 #include <eschaton/eschaton.hpp>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include <doctest/doctest.h>
-
+#include "doctest.h"
 
 
 TEST_CASE("datetime constructed by default") {
   eschaton::datetime target;
   REQUIRE(!target);
 }
-
 
 
 TEST_CASE("datetime constructed from current time") {
@@ -34,7 +32,6 @@ TEST_CASE("datetime constructed from current time") {
 }
 
 
-
 TEST_CASE("current time in seconds vs millis") {
   using namespace std::chrono;
   auto const millis = eschaton::current<milliseconds>();
@@ -43,14 +40,12 @@ TEST_CASE("current time in seconds vs millis") {
 }
 
 
-
 TEST_CASE("current time in milliseconds vs micros") {
   using namespace std::chrono;
   auto const micros = eschaton::current<microseconds>();
   auto const millis = eschaton::current<milliseconds>();
   REQUIRE(millis - micros / 1000 < 2);
 }
-
 
 
 TEST_CASE("elapsed time in millis vs micros") {
