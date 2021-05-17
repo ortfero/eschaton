@@ -186,7 +186,7 @@ inline std::optional<system_duration> parse_duration(std::string_view const& vie
   }
 
   unsigned long long count; char unit[16];
-  if (std::sscanf(view.data(), "%llu %13s%n", &count, &unit, &scanned) == 2 &&
+  if (std::sscanf(view.data(), "%llu %13s%n", &count, unit, &scanned) == 2 &&
     scanned == view.size()) {
     using std::strcmp;
     if (strcmp(unit, "microseconds") == 0 || strcmp(unit, "microsecond") == 0)
